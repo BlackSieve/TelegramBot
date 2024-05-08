@@ -1,0 +1,24 @@
+quote_ticker = money[quote]
+base_ticker = money[base]
+
+@bot.message_handler(commands=['start','help'])
+def start(massage: telebot.types.Message):
+    text = ('Чтобы начать работать введите комманду боту в следующем формате:'
+            '\n<имя валюты> <в какую валюту перевести> <количество переводимой валюты> '
+            '\n Чтобы увидеть список доступных валют напишите команду: /values  ')
+    bot.reply_to(massage, text)
+
+    r = requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={quote_ticker}&tsyms={base_ticker}')
+    total_base = json.loads(r.content)[money[base]]
+
+
+
+
+    f'https://min-api.cryptocompare.com/data/price?fsym={quote_ticker}&tsyms={base_ticker}'
+
+
+   text = (f'Цена {amount} {quote} в {base} - {[total_base*int(amount)]}')
+
+         t = float(round(total_base)*int(amount))
+        text = (f'Цена {amount} {quote} в {base} - {t}')
+        bot.send_message(massage.chat.id, text)
